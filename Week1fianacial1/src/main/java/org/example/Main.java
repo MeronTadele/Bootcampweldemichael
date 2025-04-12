@@ -7,11 +7,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         // asking user to give me input for P,R,N
         System.out.println("how much do you want to invest?");
-        double investedMoney = scanner.nextDouble();
+        double investedMoney = scanner.nextDouble(); // This is my P ( loan amount)
         System.out.println("how much is your annual rate(in %)");
-        double interestRate = scanner.nextDouble();
+        double interestRate = scanner.nextDouble();  // This is my R ( annual interest rate)
         System.out.println("for how long do you want your loan (in years):");
-        double loanLength = scanner.nextDouble();
+        double loanLength = scanner.nextDouble(); // This is my N (loan length)
         // calculating my monthly interest rate in decimal
         double monthlyRate = interestRate / 12 / 100;
         //my total number in monthly
@@ -22,7 +22,7 @@ public class Main {
                 / Math.abs(Math.pow(1+monthlyRate,numberOfMonthly)-1));
         // total interest paid
         double totalInterest = (monthlyPayment * numberOfMonthly) - investedMoney;
-        //souf in formatted results
+        //Souf in formatted results
 
         System.out.printf("your investment of $%.2f at  %.2f%% annual interest for  monthly payment with total interest of %.0f year in:\n",investedMoney,interestRate,loanLength);
         System.out.printf("Monthly payment:$%.2f \n",monthlyPayment);
