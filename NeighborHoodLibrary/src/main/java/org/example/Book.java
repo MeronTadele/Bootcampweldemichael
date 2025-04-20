@@ -7,13 +7,15 @@ public class Book {
     private String title;
     private boolean isCheckedOut;
     private String checkedOutTo;
+    private String dueDate;
     // have my constructors
-    public Book(int id, String isbn, String title, boolean isCheckedOut, String checkedOutTo) {
+    public Book(int id, String isbn, String title, boolean isCheckedOut, String checkedOutTo, String dueDate) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.isCheckedOut = isCheckedOut;
         this.checkedOutTo = checkedOutTo;
+        this.dueDate= dueDate;
     }
 
     //my getters and setters
@@ -38,6 +40,9 @@ public class Book {
     public String getCheckedOutTo() {
         return checkedOutTo;
     }
+    public String getDueDate() {
+        return dueDate;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -57,6 +62,9 @@ public class Book {
 
     public void setCheckedOutTo(String checkedOutTo) {
         this.checkedOutTo = checkedOutTo;
+    }
+    public void setDueDate(String dueDate) {
+        this.dueDate= dueDate;
     }
 
     @Override
