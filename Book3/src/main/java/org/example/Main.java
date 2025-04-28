@@ -14,6 +14,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ShoppingCart shoppingCart = new ShoppingCart();
         while (true) {
+            // this my option menu for my user
             System.out.println("Welcome to MyShop Online Store");
             System.out.println("1) display all products");
             System.out.println("2) display cart");
@@ -50,10 +51,11 @@ public class Main {
         }
     }
 
-    public static void displayProducts(Scanner scanner, ShoppingCart shoppingCart) {
-        List<Product> products = FileLoader.readFile();
+    public static void displayProducts(Scanner scanner, ShoppingCart shoppingCart) { //method for my case 1 and
+        //i add my option under here for user to add and search product
+        List<Product> products = FileLoader.readFile();// my product list
         for (Product product : products) {
-            System.out.println(product.getProductName());
+            System.out.println(product.getProductName());// name of my all product list
         }
         boolean page = true;
         while (page) {
@@ -67,11 +69,10 @@ public class Main {
 
                 for (Product product : products) {
                     scanner.nextLine();
-                    String pick = scanner.nextLine();
-                    if (product.getSku().equals(pick)) {
+                    String pick = scanner.nextLine();// ask user to input
+                    if (product.getSku().equals(pick)) {// verify if the user input matches the sku
                         System.out.println("product found:" + product.getSku());
-                    } //else if (product != null) {
-                    //System.out.println("currently out of stock!");
+                    }
                     else {
                         System.out.println(" invalid input! ");
                     }
@@ -87,7 +88,7 @@ public class Main {
                     Product product = products.get(i);
                     if (addProduct.equalsIgnoreCase(product.getSku())) {
                         shoppingCart.addProductToCart(product);
-                        itemHas = true;
+                        itemHas = true; // if user input is wrong I will tell them to try again
                     } else if (products.size() == (i + 1) && !itemHas) {
                         System.out.println("invalid sku; please try again! ");
                     }
@@ -98,7 +99,7 @@ public class Main {
 
             }
             if (option == 3) {
-                page = false;
+                page = false; // go back to the home page
                 break;
             }
         }
@@ -106,11 +107,11 @@ public class Main {
 
     }
 
-    public static void checkOut(Scanner scanner, ShoppingCart shoppingCart) {
+    public static void checkOut(Scanner scanner, ShoppingCart shoppingCart) { // case 4 method
         boolean noChoice = true;
         while (noChoice) {
             try {
-                shoppingCart.disPlayProductsINCart();
+                shoppingCart.disPlayProductsINCart(); // call my method from my shoppingCart class
 
                 System.out.println("                             ");
                 System.out.println(" would you like to make a payment? ");
@@ -121,20 +122,21 @@ public class Main {
                 if (choice == 1) {
                     System.out.println("Enter your payment.");
                     double paymentCash = scanner.nextDouble();
-                    if (paymentCash < shoppingCart.getCartTotal()) {
+                    if (paymentCash < shoppingCart.getCartTotal()) {// user payment is less than the total sale
                         System.out.println(" insufficient balance. ");
-                    } else if (paymentCash > shoppingCart.getCartTotal()) {
+                    } else if (paymentCash > shoppingCart.getCartTotal()) { // if user need change
                         paymentCash -= shoppingCart.getCartTotal();
                         System.out.printf("here is your change:$%.2f ", paymentCash);
 
                     } else {
+                        // if user input is exact change. by default this will display
                         System.out.println(" Thank you for shopping at Myshop Store! Please COME BACK AGAIN :) ");
                     }
 
 
                 }
                 if (choice == 2) {
-                    noChoice=false;
+                    noChoice=false;// go back to the home page
 
 
                 }

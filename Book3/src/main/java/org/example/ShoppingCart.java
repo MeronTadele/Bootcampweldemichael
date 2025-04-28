@@ -10,17 +10,13 @@ public class ShoppingCart {
     public ShoppingCart(){
         this.products=new ArrayList<>(); // this creates empty list this is constructor with out this we cant add list we have to initiate
     }
-    //TODO add product to cart method
+
     public void addProductToCart(Product product) { //signuter method
         products.add(product);
         System.out.println(product.getProductName() + ": item has been added. ");
     }
-    //TODO remove product from cart method
-    //you will need the sku of the product you want to remove
-    // loop through the list of products
-    //check to see if the sku matches
-    // get that product,then use the remove method after that loop
-    public void removeProduct(String sku){
+
+    public void removeProduct(String sku){ // method for case 3
         int listItem=0;
         boolean cartItem=false;
         String removedItemFromCart="";
@@ -31,7 +27,7 @@ public class ShoppingCart {
                cartItem=true;
                listItem=i;
            }
-           else if (products.size()==(i+1) && !cartItem) {
+           else if (products.size()==(i+1) && !cartItem) { // if user input is wrong product
                System.out.println("invalid sku; please try again");
            }
 
@@ -41,7 +37,7 @@ public class ShoppingCart {
            System.out.println(removedItemFromCart + " : product has been removed from your cart! ");
        }
     }
-    //TODO ger total method
+
 
     public double getCartTotal(){
         double totalSale=0;
@@ -54,7 +50,7 @@ public class ShoppingCart {
 
     }
 
-    public  void disPlayProductsINCart() {
+    public  void disPlayProductsINCart() { //method for case 2
          double totalSale=0;
         for (Product product : products){
             totalSale+=product.getPrice();
