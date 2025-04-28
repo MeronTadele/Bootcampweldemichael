@@ -70,8 +70,8 @@ public class Main {
                     String pick = scanner.nextLine();
                     if (product.getSku().equals(pick)) {
                         System.out.println("product found:" + product.getSku());
-                    } //else if (product != null) {
-                    //System.out.println("currently out of stock!");
+                    }
+            
                     else {
                         System.out.println(" invalid input! ");
                     }
