@@ -73,6 +73,10 @@ public class Main {
                     if (product.getSku().equals(pick)) {// verify if the user input matches the sku
                         System.out.println("product found:" + product.getSku());
                     }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> e0c44341591faf7b9c03e77e39a65e31a3bcbfe4
                     else {
                         System.out.println(" invalid input! ");
                     }
