@@ -4,10 +4,10 @@ import org.example.Book;
 
 public class User {
     private String name;
-    private Book[] checkedOutBooked;
+    private int checkedOutBooked;
 
 
-    public User(String name, Book[] checkedOutBooked) {
+    public User(String name, int checkedOutBooked) {
         this.name = name;
         this.checkedOutBooked = checkedOutBooked;
     }

@@ -18,11 +18,12 @@ public class Main {
         double numberOfMonthly = loanLength * 12;
 
         //monthly payment calculation P[r(1+r)^n] / [(1+r)^n-1]
+        // one interesting method I used it Math.abs to not get negative rate
         double monthlyPayment= investedMoney * (Math.abs(monthlyRate*Math.pow(1+monthlyRate,numberOfMonthly))
                 / Math.abs(Math.pow(1+monthlyRate,numberOfMonthly)-1));
         // total interest paid
         double totalInterest = (monthlyPayment * numberOfMonthly) - investedMoney;
-        //Souf in formatted results
+        //display format results
 
         System.out.printf("your investment of $%.2f at  %.2f%% annual interest for  monthly payment with total interest of %.0f year in:\n",investedMoney,interestRate,loanLength);
         System.out.printf("Monthly payment:$%.2f \n",monthlyPayment);

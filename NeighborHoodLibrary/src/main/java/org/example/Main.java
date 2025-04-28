@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // i will instantiate a class Array []
+        // i will instantiate a class Array that holds 20 books []
         Book[] inventory = new Book[20];
-        // i have my inventory with all 5 properties
+        // i have my 20 books inventory with all 5 properties
         Book book = new Book(0, "976098927494", "how to win", true, "mary", "10 days from today");
         Book book1 = new Book(1, "9780140449136", "The Odyssey", false, "", "");
         Book book2 = new Book(2, "9780679783275", "Pride and Prejudice", true, "Alice Johnson", "10 days from today");
@@ -31,6 +31,8 @@ public class Main {
         Book book19 = new Book(19, "9780142437209", "Moby Dick", false, "", "");
 
 
+
+        // add books to the array
         inventory[0] = book;
         inventory[1] = book1;
         inventory[2] = book2;
@@ -52,12 +54,12 @@ public class Main {
         inventory[18] = book18;
         inventory[19] = book19;
 
-        //User user=new User("mary",);
+      //User user=new User("mary",1);
 
 
         // have my Scanner that will allow user to type their input
         Scanner scanner = new Scanner(System.in);
-        // while (true) will make infinite loops until user breaks it
+        //  this is my main loop,while (true) will make infinite loops until user breaks it
         while (true) {
             System.out.println("Welcome to Dunwoody libray how can we help?");
             System.out.println("1) available all books ");
@@ -68,19 +70,19 @@ public class Main {
             int memberChoice = scanner.nextInt();
             switch (memberChoice) {
                 case 1:
-                    availableBooks(inventory, scanner);
+                    availableBooks(inventory, scanner); // lis available books
                     break;
                 case 2:
-                    checkedOutBook(inventory, scanner);
+                    checkedOutBook(inventory, scanner);// checked out books
                     break;
                 case 3:
-                    searchBooksByTitleorIsbn(inventory, scanner);
+                    searchBooksByTitleorIsbn(inventory, scanner);// search for bopks
                     break;
                 case 4:
-                    usersChceckedOutBooks(inventory, scanner);
+                    usersChceckedOutBooks(inventory, scanner);// check if a book is checked out
                     break;
                  case 5 :
-                 System.exit(0);
+                 System.exit(0);// exit
                  break;
                 default:
                     System.out.println("no option");
@@ -93,7 +95,7 @@ public class Main {
 
     }
 
-    public static void availableBooks(Book[] inventory, Scanner scanner) { // this my method for case 1
+    public static void availableBooks(Book[] inventory, Scanner scanner) { // this my method for case 1 display avilable book
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i].isCheckedOut() != true) {
                 System.out.println(inventory[i].getId() + " " + inventory[i].getIsbn() + " " + inventory[i].getTitle());
@@ -103,7 +105,7 @@ public class Main {
         System.out.println("do you want to select a book to check out"); // asking user if they want to check out or not
         System.out.println("1) yes ");
         System.out.println("2) no");
-        int selectOption = scanner.nextInt();
+        int selectOption = scanner.nextInt(); // add my code  new line
         if (selectOption == 1) {//if yes then they will need this info
             System.out.println("what is your name");
             scanner.nextLine();
@@ -114,7 +116,9 @@ public class Main {
             String bookName = scanner.nextLine();
             for (int i = 0; i < inventory.length; i++) {
                 if (bookName.equalsIgnoreCase(inventory[i].getTitle())) {
-                    inventory[i].setCheckedOut(true); // weather the book has been checked out( we saying true because th book is checked out)
+
+                    // weather the book has been checked out or not( we saying true because the book is checked out)
+                    inventory[i].setCheckedOut(true);
                     System.out.println(" your due date is 10 days from today!");
                     inventory[i].setDueDate("your dueDate is 10 days from today!");// this set dueDate when they show check out book.
                 }
@@ -125,7 +129,7 @@ public class Main {
 
     }
 
-    public static void checkedOutBook(Book[] inventory, Scanner scanner) { // case 2 Method
+    public static void checkedOutBook(Book[] inventory, Scanner scanner) { // case 2 Method allow to check in
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i].isCheckedOut() == true) {
                 System.out.println(inventory[i].getId() + " " + inventory[i].getIsbn() + " " +
@@ -156,7 +160,7 @@ public class Main {
         }
     }
 
-
+             // case 3 method to search for books by title or isbn
             public static void searchBooksByTitleorIsbn(Book[] inventory,Scanner scanner) {
                 scanner.nextLine();
                 String checkedOut = scanner.nextLine();
@@ -176,7 +180,7 @@ public class Main {
 
 
             }
-
+              // case 4 method if a specific book is checked out
             public static void  usersChceckedOutBooks(Book[] inventory,Scanner scanner) {
                 System.out.println(" which book do you want  please enter title or Isbn?");
                 scanner.nextLine();

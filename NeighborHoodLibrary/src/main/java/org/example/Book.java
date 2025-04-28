@@ -66,6 +66,9 @@ public class Book {
     public void setDueDate(String dueDate) {
         this.dueDate= dueDate;
     }
+    public void checkout(String name);{
+
+    }
 
     @Override
     public String toString() {
