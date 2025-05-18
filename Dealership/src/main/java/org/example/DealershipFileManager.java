@@ -17,7 +17,7 @@ public class DealershipFileManager {
             String phone = added[2];
             dealership = new Dealership(name, address, phone);
 
-            bufferedReader.readLine();
+            //bufferedReader.readLine();
             String input;
 
             while ((input = bufferedReader.readLine()) != null) {
@@ -42,37 +42,28 @@ public class DealershipFileManager {
 
         }
     }
-        public static void writeFile(List<Vehicle> VehicleList) {
+        public void saveDealership(List<Vehicle> VehicleList) {
             try {
-                FileWriter fileWriter = new FileWriter("src/main/resources/vehicles.csv");
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                File file=new File("src/main/resources/vehicles.csv");
+                FileWriter fileWriter = new FileWriter(file);
+                //BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                fileWriter.write("D & B Used Cars|111 Old Benbrook Rd|817-555-5555\n");
 
-                // Write product rows
+
                 for (Vehicle vehicle : VehicleList) {
-                    String line = vehicle.getVin() + "|" +
-                            vehicle.getYear() + "|" +
-                            vehicle.getMake() + "|" +
-                            vehicle.getModel() + "|" +
-                            vehicle.getVehicleType() + "|" +
-                            vehicle.getColor() + "|" +
-                            vehicle.getOdometer() + "|" +
-                            vehicle.getPrice() + "|";
-                    bufferedWriter.write(line);
-                    bufferedWriter.newLine();
+
+                   fileWriter.write(vehicle.toString().trim()+"\n");
+
                 }
 
                 // Close the writer
-                bufferedWriter.close();
+                fileWriter.close();
             } catch (IOException ex) {
                 System.out.println("Failed to write to csv file.");
                 ex.printStackTrace();
             }
         }
 
-
-    public void saveDealership(Dealership dealership){
-
-    }
 
     }
 
