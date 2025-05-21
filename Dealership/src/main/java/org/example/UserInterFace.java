@@ -179,7 +179,7 @@ public class UserInterFace {
     }
     public void helpermethod(List<Vehicle> vehicles){ // this method will get all the list from file
         for(int i=0; i<vehicles.size(); i++){
-            System.out.println(vehicles.get(i).toString());//todo
+            System.out.println(vehicles.get(i).toString());
         }
 
     }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.io.FileWriter;
 
 public class DealershipFileManager {
-    public  Dealership getDealership() {
+    public Dealership getDealership() {
         try {
             FileReader fileReader = new FileReader("src/main/resources/vehicles.csv");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -26,7 +26,7 @@ public class DealershipFileManager {
                 int year = Integer.parseInt(add[1]);
                 String make = add[2];
                 String model = add[3];
-                VehicleType vehicleType = VehicleType.valueOf(add[4]);//converting to string
+                VehicleType  vehicleType = VehicleType.valueOf(add[4]);//converting to string
                 String color = add[5];
                 int odometer = Integer.parseInt(add[6]);
                 double price = Double.parseDouble(add[7]);
@@ -42,28 +42,29 @@ public class DealershipFileManager {
 
         }
     }
-        public void saveDealership(List<Vehicle> VehicleList) {
-            try {
-                File file=new File("src/main/resources/vehicles.csv");
-                FileWriter fileWriter = new FileWriter(file);
-                //BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                fileWriter.write("D & B Used Cars|111 Old Benbrook Rd|817-555-5555\n");
+
+    public void saveDealership(List<Vehicle> VehicleList) {
+        try {
+            File file = new File("src/main/resources/vehicles.csv");
+            FileWriter fileWriter = new FileWriter(file);
+            //BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            fileWriter.write("D & B Used Cars|111 Old Benbrook Rd|817-555-5555\n");
 
 
-                for (Vehicle vehicle : VehicleList) {
+            for (Vehicle vehicle : VehicleList) {
 
-                   fileWriter.write(vehicle.toString().trim()+"\n");
+                fileWriter.write(vehicle.toString().trim() + "\n");
 
-                }
-
-                // Close the writer
-                fileWriter.close();
-            } catch (IOException ex) {
-                System.out.println("Failed to write to csv file.");
-                ex.printStackTrace();
             }
+
+            // Close the writer
+            fileWriter.close();
+        } catch (IOException ex) {
+            System.out.println("Failed to write to csv file.");
+            ex.printStackTrace();
         }
-
-
     }
+
+
+}
 
