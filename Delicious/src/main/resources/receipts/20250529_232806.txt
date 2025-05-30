@@ -1,0 +1,19 @@
+Welcome to Marry and the SandwichSandwich:
+  Bread Type: white
+  Size: 4"
+  Toasted: true
+  Meats:
+    - steak (size: 4)
+  Cheese:
+    - provolone (size: 4)
+  Regular Toppings:
+    - Jalapenos (size: 4)
+  Sauces:
+    - Ranch (size: 4)
+  Sides:
+    None
+
+m
+7.25
+[]
+[]

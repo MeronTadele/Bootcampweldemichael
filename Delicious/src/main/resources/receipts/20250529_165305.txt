@@ -1,0 +1,6 @@
+Welcome to Marry and the Sandwich
+Sandwich{breadType=white, size=1, toasted=true, meats=[Topping{name='bacon', size=1}, Topping{name='a', size=1}], cheese=[Topping{name='provolone', size=1}], toppings=[Topping{name='5', size=1}], sauces=[Topping{name='4', size=1}], side=[Topping{name='1', size=1}]}
+m
+7.75
+[]
+[]

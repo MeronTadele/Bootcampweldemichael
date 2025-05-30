@@ -1,0 +1,6 @@
+Welcome to Marry and the Sandwich
+Sandwich{breadType=rye, size=1, toasted=true, meats=[Topping{name='steak', size=1}, Topping{name='Extra meat', size=1}], cheese=[Topping{name='american', size=1}, Topping{name='Extra cheese', size=1}], toppings=[Topping{name='6', size=1}], sauces=[], side=[Topping{name='1', size=1}]}
+m
+11.55
+[Drink{drinkSize=small}]
+[Chips{chipsSize=3}]
