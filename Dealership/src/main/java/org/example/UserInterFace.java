@@ -7,72 +7,93 @@ import java.util.Scanner;
 public class UserInterFace {
 
     Dealership  dealership;
+   String[] args;
+
+    public UserInterFace(String[] args) {
+        this.args = args;
+        dealership= new Dealership(args);
+    }
 
     public void display(){
     init();
         Scanner scanner=new Scanner(System.in);
     while (true){ //display menu
-        System.out.println(" Enter your choice please.");
-        System.out.println("1)Find vehicles within a price range");
-        System.out.println("2)Find vehicles by make / model");
-        System.out.println("3)Find vehicles by color");
-        System.out.println("4)Find vehicles by mileage range");
-        System.out.println("5)Find vehicles by year range");
-        System.out.println("6)Find vehicles by type(car,truck,SUV,van)");
-        System.out.println("7)List All vehicles");
-        System.out.println("8)Add a vehicles");
-        System.out.println("9)Remove a vehicle");
-        System.out.println("0)quit");
-        System.out.println("10) Sale or Lease A vehicle.");
-        int ask=Integer.parseInt(scanner.nextLine());
-        switch (ask){ // switch statement for user to input
-            case 1:GetByPriceRequest(scanner);
+        try {
 
-            break;
-            case 2:GetByMakeModelRequest(scanner);
+            System.out.println(" Enter your choice please.");
+            System.out.println("1)Find vehicles within a price range");
+            System.out.println("2)Find vehicles by make / model");
+            System.out.println("3)Find vehicles by color");
+            System.out.println("4)Find vehicles by mileage range");
+            System.out.println("5)Find vehicles by year range");
+            System.out.println("6)Find vehicles by type(car,truck,SUV,van)");
+            System.out.println("7)List All vehicles");
+            System.out.println("8)Add a vehicles");
+            System.out.println("9)Remove a vehicle");
+            System.out.println("0)quit");
+            System.out.println("10) Sale or Lease A vehicle.");
+            int ask = Integer.parseInt(scanner.nextLine());
 
-            break;
-            case 3:GetByColorRequest(scanner);
+            switch (ask) { // switch statement for user to input
+                case 1:
+                    GetByPriceRequest(scanner);
 
+                    break;
+                case 2:
+                    GetByMakeModelRequest(scanner);
 
-            break;
-            case 4:GetByMileageRequest(scanner);
-
-            break;
-            case 5:GetByYearRequest(scanner);
-
-
-            break;
-            case 6:GetByVehicleTypeRequest(scanner);
+                    break;
+                case 3:
+                    GetByColorRequest(scanner);
 
 
-            break;
-            case 7:GetAllVehicleRequest();
+                    break;
+                case 4:
+                    GetByMileageRequest(scanner);
 
-            break;
-            case 8:AddVehiclesRequest(scanner);
-
-            break;
-            case 9:RemoveVehicleRequest(scanner);
-
-            break;
-            case 0:
-             System.exit(0);
-
-            case 10:saleOrLeaseVehicle(scanner);
-            break;
-            default:
-                System.out.println("invalid");
+                    break;
+                case 5:
+                    GetByYearRequest(scanner);
 
 
+                    break;
+                case 6:
+                    GetByVehicleTypeRequest(scanner);
+
+
+                    break;
+                case 7:
+                    GetAllVehicleRequest();
+
+                    break;
+                case 8:
+                    AddVehiclesRequest(scanner);
+
+                    break;
+                case 9:
+                    RemoveVehicleRequest(scanner);
+
+                    break;
+                case 0:
+                    System.exit(0);
+
+                case 10:
+                    saleOrLeaseVehicle(scanner);
+                    break;
+                default:
+                    System.out.println("invalid");
+
+
+            }
+        }catch (Exception ex){
+            System.out.println("invalid");
         }
 
     }
     }
 
     private void init(){
-        DealershipFileManager dealershipFileManager=new DealershipFileManager();
-      dealership=dealershipFileManager.getDealership();
+
     }
 
     public void GetByPriceRequest(Scanner scanner){
@@ -86,9 +107,12 @@ public class UserInterFace {
     public void GetByMakeModelRequest(Scanner scanner){
         System.out.println("Enter what type of make you want.");
         String make=scanner.nextLine().toLowerCase();
-        System.out.println("Enter what type od model you want.");
+        System.out.println("Enter what type of model you want.");
         String model=scanner.nextLine().toLowerCase();
        helpermethod( dealership.getVehiclesByMakeModel(make,model));
+       if (dealership.getVehiclesByMakeModel(make ,model).isEmpty()){
+           System.out.println(" car not available!");
+       }
 
     }
     public void GetByYearRequest(Scanner scanner){
@@ -107,9 +131,9 @@ public class UserInterFace {
     }
     public void GetByMileageRequest(Scanner scanner){
         System.out.println("Enter your min mileage.");
-        double miMin=Double.parseDouble(scanner.nextLine());
+        int miMin=Integer.parseInt(scanner.nextLine());
         System.out.println("Enter your max mileage");
-        double mxMin=Double.parseDouble(scanner.nextLine());
+        int mxMin=Integer.parseInt(scanner.nextLine());
       helpermethod(dealership.getVehiclesByMileage(miMin,mxMin));
 
     }
@@ -172,9 +196,7 @@ public class UserInterFace {
         System.out.println("Add your Vehicle price");
         double priceVehicles=Double.parseDouble(scanner.nextLine());
         System.out.println("vehicle has been removed!");
-        DealershipFileManager dealershipFileManager=new DealershipFileManager();
       dealership.removeVehicle(new Vehicle(vin1,year1,makeVehicle2,modelVehicle2,vehicleType2,colorVehicles,odometer1,priceVehicles));
-      dealershipFileManager.saveDealership(dealership.getVehicles());
 
     }
     public void helpermethod(List<Vehicle> vehicles){ // this method will get all the list from file

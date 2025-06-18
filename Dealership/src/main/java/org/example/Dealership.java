@@ -9,12 +9,17 @@ public class Dealership {
     private String address;
     private String phone;
     private ArrayList<Vehicle> vehicles;
+    private VehicleDao vehicleDao;
+    private SaleDao saleDao;
+    private LeaseDao leaseDao;
 
-    public Dealership(String name, String address, String phone) {
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.vehicles = new ArrayList<>(); // because it is object
+
+    public Dealership( String []args) {
+
+        this.vehicles = vehicles;
+        this.vehicleDao = new VehicleDao("jdbc:mysql://localhost:3307/cardealership" , args[0] ,args[1]);
+        this.saleDao = new SaleDao("jdbc:mysql://localhost:3307/cardealership" , args[0] ,args[1]);
+        this.leaseDao = new LeaseDao("jdbc:mysql://localhost:3307/cardealership" , args[0] ,args[1]);
     }
 
     public String getName() {
@@ -49,112 +54,82 @@ public class Dealership {
         this.vehicles = vehicles;
     }
 
+    public VehicleDao getVehicleDao() {
+        return vehicleDao;
+    }
+
+    public void setVehicleDao(VehicleDao vehicleDao) {
+        this.vehicleDao = vehicleDao;
+    }
+
+    public SaleDao getSaleDao() {
+        return saleDao;
+    }
+
+    public void setSaleDao(SaleDao saleDao) {
+        this.saleDao = saleDao;
+    }
+
+    public LeaseDao getLeaseDao() {
+        return leaseDao;
+    }
+
+    public void setLeaseDao(LeaseDao leaseDao) {
+        this.leaseDao = leaseDao;
+    }
 
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
-        List<Vehicle> vehicles1 = new ArrayList<>();// will create new list
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle2 = vehicles.get(i);
-            if (vehicle2.getPrice() >= min && vehicle2.getPrice() <= max) {
-                vehicles1.add(vehicles.get(i));
-            }
 
 
-        }
-        return vehicles1;
+        return vehicleDao.getVehicleByPrice(min, max);
     }
 
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
-        List<Vehicle> vehicles1 = new ArrayList<>();// will create new list
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle2 = vehicles.get(i);
-            if (vehicle2.getMake().equalsIgnoreCase(make) && vehicle2.getModel().equalsIgnoreCase(model)) {
-                vehicles1.add(vehicles.get(i));
-            }
-        }
-        return vehicles1;
+
+
+        return vehicleDao.getVehicleBymakeandmodel(make,model);
     }
 
 
-    public List<Vehicle> getVehiclesByYear(double min, double max) {
-        List<Vehicle> vehicles1 = new ArrayList<>();// will create new list
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle2 = vehicles.get(i);
-            if (vehicle2.getYear() >= min && vehicle2.getYear() <= max) {
-                vehicles1.add(vehicles.get(i));
+    public List<Vehicle> getVehiclesByYear(int min, int max) {
 
-            }
-        }
-        return vehicles1;
+        return vehicleDao.getVehicleByyear(min , max);
     }
 
 
     public List<Vehicle> getVehiclesByColor(String color) {
-        List<Vehicle> vehicles1 = new ArrayList<>();// will create new list
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle2 = vehicles.get(i);
-            if (vehicle2.getColor().equalsIgnoreCase(color)) {
-                vehicles1.add(vehicles.get(i));
 
 
-            }
-        }
-        return vehicles1;
+        return vehicleDao.getVehicleByColor(color);
     }
 
 
-    public List<Vehicle> getVehiclesByMileage(double min, double max) {
-        List<Vehicle> vehicles1 = new ArrayList<>();// will create new list
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle2 = vehicles.get(i);
-            if (vehicle2.getOdometer() >= min && vehicle2.getOdometer() <= max) {
-                vehicles1.add(vehicles.get(i));
-            }
-        }
-        return vehicles1;
+    public List<Vehicle> getVehiclesByMileage(int min, int max) {
+
+        return vehicleDao.getVehicleByOdometer(min,max);
     }
 
     public List<Vehicle> getVehiclesByVehicleType(VehicleType vehicleType) {
-        List<Vehicle> vehicles1 = new ArrayList<>();// will create new list
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle2 = vehicles.get(i);
-            if (vehicle2.getVehicleType().equals(vehicleType)) {
-                vehicles1.add(vehicles.get(i));
 
-            }
-        }
-        return vehicles1;
+        return vehicleDao.getVehicleByType(vehicleType.toString());
     }
 
 
     public List<Vehicle> getAllVehicles() {
-        for (int i = 0; i < vehicles.size(); i++) {
-            vehicles.get(i);
 
-
-        }
-        return vehicles;
+        return vehicleDao.getall();
     }
 
     public void addVehicle(Vehicle vehicle) {
-        vehicles.add(vehicle);
-        DealershipFileManager dealershipFileManager = new DealershipFileManager();
-        dealershipFileManager.saveDealership(vehicles);
+        vehicleDao.create(vehicle);
     }
 
     public void removeVehicle(Vehicle vehicle) {
-        for (int i = 0; i < vehicles.size(); i++) {
-            if (vehicles.get(i).toString().equalsIgnoreCase(vehicle.toString())) {
-                vehicles.remove(vehicles.get(i));
 
-            }
-        }
-        DealershipFileManager dealershipFileManager = new DealershipFileManager();
-        dealershipFileManager.saveDealership(vehicles);
-
+       vehicleDao.delete(vehicle.getVin());
     }
 
     public void getSaleOrLeaseVehicle(int choice, int vin, String name, String email, int finance) {
-        ContractFileManager contractFileManager = new ContractFileManager();
         for (int i = 0; i < vehicles.size(); i++) {
             Vehicle vehicle = vehicles.get(i);
             if (vin == vehicle.getVin()) {
@@ -163,19 +138,21 @@ public class Dealership {
                     if (finance == 1) {
                         String date = String.valueOf(LocalDate.now());
                         salesContract = new SalesContract(date, name, email, vehicle, true);
-                        contractFileManager.saveContract(salesContract);
+                        saleDao.create(salesContract);
                         System.out.println("Vehicle sold:" + salesContract);
                     } else if (finance == 2) {
                         String date = String.valueOf(LocalDate.now());
                         salesContract = (new SalesContract(date, name, email, vehicle, false));
-                        contractFileManager.saveContract(salesContract);
+                        saleDao.create(salesContract);
                         System.out.println("Vehicle sold:" + salesContract);
                     }
+                    saleDao.update(vin);
                     break;}
                     else if (choice == 2) {
                         String date = String.valueOf(LocalDate.now());
                       LeaseContract  leaseContract=(new LeaseContract(date, name, email, vehicle));
-                        contractFileManager.saveContract(leaseContract);
+                      leaseDao.create(leaseContract);
+                      leaseDao.update(vin);
                     System.out.println("Vehicle Leased"+ leaseContract);
                         break;
                     }

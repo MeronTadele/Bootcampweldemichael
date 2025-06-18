@@ -6,7 +6,17 @@ public class SalesContract extends Contract{
     private double processingFee;
     private boolean isFinanced;
     private double monthlyPayment;
-    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicle,boolean isFinanced) {
+
+    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicle, double taxAmount, double recordingFee, double processingFee, boolean isFinanced, double monthlyPayment) {
+        super(date, customerName, customerEmail, vehicle);
+        this.taxAmount = taxAmount;
+        this.recordingFee = recordingFee;
+        this.processingFee = processingFee;
+        this.isFinanced = isFinanced;
+        this.monthlyPayment = monthlyPayment;
+    }
+
+    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicle, boolean isFinanced) {
         super(date, customerName, customerEmail, vehicle);
         taxAmount=0.05* vehicle.getPrice();
         recordingFee=100;
@@ -53,7 +63,7 @@ public class SalesContract extends Contract{
 
     @Override
     public double  getTotalPrice() {
-        return getVehicle().getPrice() + (getVehicle().getPrice() * getTaxAmount()) + getProcessingFee();
+        return getVehicle().getPrice()  + getTaxAmount() + getProcessingFee();
     }
 
     @Override
