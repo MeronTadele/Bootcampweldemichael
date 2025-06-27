@@ -7,7 +7,7 @@ public interface ShoppingCartDao
 {
 
     ShoppingCart getByUserId(int userId);
-    boolean create(int userId ,int product_id);
+    ShoppingCart create(int userId ,int product_id);
     boolean update(int productId  , ShoppingCartItem shoppingCartItem , boolean FromAdd , int userId , int quantity);
-    void delete(int userId);
+    ShoppingCart delete(int userId);
 }

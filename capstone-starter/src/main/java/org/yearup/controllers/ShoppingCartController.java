@@ -71,20 +71,18 @@ public class ShoppingCartController
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found: " + userName);
         }
         int userId = user.getId();
-        ShoppingCart shoppingCart = shoppingCartDao.getByUserId(userId);
+
+        ShoppingCart shoppingCart = getCart(principal);
         if (!shoppingCart.contains(product_id)) {
-            boolean created = shoppingCartDao.create(userId, product_id);
-            if (created) {
-                ShoppingCart newShopping= shoppingCartDao.getByUserId(userId);
-                newShopping.get(product_id);
-            }
+                   shoppingCartDao.create(userId, product_id);
+
 
         } else if (shoppingCart.contains(product_id)) {
             shoppingCartDao.update(product_id, shoppingCart.get(product_id), true , userId , 0);
             ShoppingCart newShopping=shoppingCartDao.getByUserId(userId);
 
         }
-        return shoppingCart;
+        return shoppingCartDao.getByUserId(userId);
     }
 
 

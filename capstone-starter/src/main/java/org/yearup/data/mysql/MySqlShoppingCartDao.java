@@ -47,7 +47,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
 
 
     @Override
-    public boolean create(int userId, int product_id) {
+    public ShoppingCart create(int userId, int product_id) {
         String sql = "INSERT INTO shopping_cart(user_id, product_id, quantity) " +
                 " VALUES (?, ?, 1);";
         try (Connection connection = getConnection()) {
@@ -60,13 +60,13 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
                 ResultSet generatedKeys = statement.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     int orderId = generatedKeys.getInt(1);
-                    return true;
+
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return false;
+        return getByUserId(userId);
     }
     @Override
     public boolean update(int productId, ShoppingCartItem shoppingCartItem, boolean fromAdd, int userId, int quantity) {
@@ -91,7 +91,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
         return true;
     }
     @Override
-    public void delete(int user_id) {
+    public ShoppingCart delete(int user_id) {
         String sql = "DELETE FROM shopping_cart " +
                 " WHERE user_id = ?;";
         try (Connection connection = getConnection()) {
@@ -101,7 +101,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        return getByUserId(user_id);
     }
 
 
